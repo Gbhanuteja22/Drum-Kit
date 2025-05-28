@@ -1,9 +1,9 @@
-for(var i=0;i<document.querySelectorAll(".drum").length;i++){
-    document.querySelectorAll(".drum")[i].addEventListener("click",function(){
-        makesound(this.innerText);
-        buttonanimation(this.innerText);
-    });
-}
+// for(var i=0;i<document.querySelectorAll(".drum").length;i++){
+//     document.querySelectorAll(".drum")[i].addEventListener("click",function(){
+//         makesound(this.innerText);
+//         buttonanimation(this.innerText);
+//     });
+// }
 // function makesound(i){
 //     switch(i){
 //         case 'w':var crash=new Audio("sounds/crash.mp3");
@@ -29,9 +29,40 @@ for(var i=0;i<document.querySelectorAll(".drum").length;i++){
 //                 break;
 //     }
 // }
-function makesound(i){
-    const basePath = window.location.pathname.includes("Drum-Kit") ? "/Drum-Kit/" : "/";
-    switch(i){
+
+// document.addEventListener("keypress",function (e){
+//     makesound(e.key);
+//     buttonanimation(e.key);
+// });
+// function buttonanimation(chose){
+//     var active=document.querySelector("."+chose);
+//     active.classList.add("pressed");
+//     setTimeout(function(){
+//         active.classList.remove("pressed");
+//     },100);
+// }
+
+
+
+
+
+
+
+
+
+
+// Get base path dynamically for GitHub Pages subfolder support
+const basePath = window.location.pathname.includes("Drum-Kit") ? "/Drum-Kit/" : "/";
+
+for (let i = 0; i < document.querySelectorAll(".drum").length; i++) {
+    document.querySelectorAll(".drum")[i].addEventListener("click", function () {
+        makesound(this.innerText);
+        buttonanimation(this.innerText);
+    });
+}
+
+function makesound(key) {
+    switch (key) {
         case 'w':
             new Audio(basePath + "sounds/crash.mp3").play();
             break;
@@ -53,17 +84,23 @@ function makesound(i){
         case 'l':
             new Audio(basePath + "sounds/tom-4.mp3").play();
             break;
+        default:
+            // do nothing if key not recognized
+            break;
     }
 }
 
-document.addEventListener("keypress",function (e){
-    makesound(e.key);
-    buttonanimation(e.key);
+document.addEventListener("keypress", function (event) {
+    makesound(event.key);
+    buttonanimation(event.key);
 });
-function buttonanimation(chose){
-    var active=document.querySelector("."+chose);
-    active.classList.add("pressed");
-    setTimeout(function(){
-        active.classList.remove("pressed");
-    },100);
+
+function buttonanimation(chose) {
+    var active = document.querySelector("." + chose);
+    if (active) {  // Check if element exists to avoid errors
+        active.classList.add("pressed");
+        setTimeout(function () {
+            active.classList.remove("pressed");
+        }, 100);
+    }
 }
